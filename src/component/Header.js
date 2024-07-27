@@ -12,70 +12,102 @@ import {
 } from "@mui/material";
 import {ExpandLess, ExpandMore} from "@mui/icons-material";
 
-//Get dir of Add Prompt Images and define the instruction
-const addPromptImages = require.context('../../public/Image/Tutorial/AddPrompt', true);
-const addPromptImageNames = addPromptImages.keys().map((item) => item.replace('./', ''));
-const addPromptLabels = [
-    'Choose "Generate new room" mode',
-    'Describe how you want your to look like',
-    'Choose a layout type.\n    - Only text: Generate image from your description only\n    - Sketch image: Generate image from your description and your layout guidance',
-    '(Optional) If the type "Sketch image" is selected, you need to upload your sketch image or pick one from the gallery',
-    'Click "Generate"'
+//Get dir of Upload Images and define the instruction
+const uploadImageImages = require.context('../../public/Image/Tutorial/UploadImage', true);
+const uploadImageImageNames = uploadImageImages.keys().map((item) => item.replace('./', ''));
+const uploadImageImageLabels = [
+    'Click on the "Upload" button (on the top right corner).',
+    'Choose the image. Then the image after upload will be on the Gallery.',
 ]
 
-//Get dir of Prompt To Sketch Images and define the instruction
-const promptToSketchImages = require.context('../../public/Image/Tutorial/PromptToSketch', true);
-const promptToSketchImageNames = promptToSketchImages.keys().map((item) => item.replace('./', ''));
-const promptToSketchLabels = [
-    'Choose "Change room\'s style" mode',
-    'Upload your image, or select from the gallery',
-    'Describe the new style for your room',
-    'Choose a layout type:\n    - Image gradients: The details of the shapes in the original image are preserved.\n    - Depth information: The depth of the objects is preserved, and the system will be slightly more creative.\n    - Line sketch: Only the straight lines in the image are preserved, allowing the system to be more creative.',
-    'Click "Generate"'
+//Get dir of Add Mask Images and define the instruction
+const addMaskImages = require.context('../../public/Image/Tutorial/AddMask', true);
+const addMaskImageNames = addMaskImages.keys().map((item) => item.replace('./', ''));
+const addMaskImageLabels = [
+    'Click on the Bot button (on the bottom right corner).',
+    'Click on Image Mask button',
+    'Mask the object which you want to.',
 ]
 
-//Get dir of Edit Sketch Images and define the instruction
-const editSketchImages = require.context('../../public/Image/Tutorial/EditSketch', true);
-const editSketchImageNames = editSketchImages.keys().map((item) => item.replace('./', ''));
-const editSketchLabels = [
-    'Choose "Edit room with masks"',
-    'Upload your image, or select from the gallery',
-    'Describe what you want to edit.\n    - For changing object, you should provide the details of the new object.\n    - For removing object, you should describe the background of the object that you want to remove, such as wall, floor, ceiling...',
-    'Choose a layout mode. Choose "Only text" if you don\'t want to keep the original shape of the objects, otherwise:\n    - Image gradients: The details of the shapes of the objects are preserved.\n    - Depth information: The depth of the objects is preserved.\n    - Line sketch: The straight lines of the objects are preserved.',
-    'Choose object / area that you want to edit:\n    - Automatic:\n        + Clicking: click on the object that you want to edit\n        + Bounding box: click and then drag to cover the object that you want to edit\n    - Manual: draw the mask on the object that you want to edit',
-    'To achieve better results:\n    - The masks should have a simple shape (such as square, circle, oval, etc.)\n    - The masks should not overfit the the object',
-    'Click "Generate"'
+//Get dir of Image Generation Images and define the instruction
+const imageGenerationImages = require.context('../../public/Image/Tutorial/ImageGeneration', true);
+const imageGenerationImageNames = imageGenerationImages.keys().map((item) => item.replace('./', ''));
+const imageGenerationImageLabels = [
+    'Draw a sketch of your idea.',
+    'Add description of idea into prompt field.',
+    'Click on the Bot button (on the bottom right corner).',
+    'Click on Image Generation button',
 ]
 
-//Get dir of Replace Object Images and define the instruction
-const replaceObjectImages = require.context('../../public/Image/Tutorial/ReplaceObject', true);
-const replaceObjectImageNames = replaceObjectImages.keys().map((item) => item.replace('./', ''));
-const replaceObjectLabels = [
-    'Choose "Edit room with strokes"',
-    'Upload your image, or select from the gallery',
-    'Describe what you want to edit. The description should avoid contradictions with the strokes you are about to draw.',
-    'Choose a layout mode. Choose "Only text" if you don\'t want to keep the original shape of the objects, otherwise:\n    - Image gradients: The details of the shapes of the objects are preserved.\n    - Depth information: The depth of the objects is preserved.\n    - Line sketch: The straight lines of the objects are preserved.',
-    'Pick stroke color and size',
-    'Draw strokes. Note that only the regions you draw on are edited.\nCurrently, the system works fine when you use warm colors (red, orange, yellow, etc.) or white.\nCool colors (green, blue) mostly produce undesirable results.',
-    'Click "Generate"'
+//Get dir of Object Addition Images and define the instruction
+const objectAdditionImages = require.context('../../public/Image/Tutorial/ObjectAddition', true);
+const objectAdditionImageNames = objectAdditionImages.keys().map((item) => item.replace('./', ''));
+const objectAdditionImageLabels = [
+    'Click on the image on Gallery to add into Canvas.',
+    'Add mask the region you want to add object to.',
+    'Add description of idea into prompt field.',
+    'Click on the Bot button (on the bottom right corner).',
+    'Click on Object Addition button',
 ]
 
-//Get dir of Download Images and define the instruction
-const howToDownloadImages = require.context('../../public/Image/Tutorial/HowToDownload', true);
-const howToDownloadImageNames = howToDownloadImages.keys().map((item) => item.replace('./', ''));
-const howToDownloadLabels = [
-    'Choose "Edit room with strokes"',
-    'Upload your image, or select from the gallery',
-    'Describe what you want to edit. The description should avoid contradictions with the strokes you are about to draw.',
-    'Choose a layout mode. Choose "Only text" if you don\'t want to keep the original shape of the objects, otherwise:\n    - Image gradients: The details of the shapes of the objects are preserved.\n    - Depth information: The depth of the objects is preserved.\n    - Line sketch: The straight lines of the objects are preserved.',
-    'Pick stroke color and size',
-    'Draw strokes. Note that only the regions you draw on are edited.\nCurrently, the system works fine when you use warm colors (red, orange, yellow, etc.) or white.\nCool colors (green, blue) mostly produce undesirable results.',
-    'Click "Generate"'
+//Get dir of Background Alteration Images and define the instruction
+const backgroundAlterationImages = require.context('../../public/Image/Tutorial/BackgroundAlteration', true);
+const backgroundAlterationImageNames = backgroundAlterationImages.keys().map((item) => item.replace('./', ''));
+const backgroundAlterationImageLabels = [
+    'Click on the image on Gallery to add into Canvas.',
+    'Add mask the region you want to keep.',
+    'Add description of idea into prompt field.',
+    'Click on the Bot button (on the bottom right corner).',
+    'Click on Background Alteration button',
+]
+
+//Get dir of Pose Transition Images and define the instruction
+const poseTransitionImages = require.context('../../public/Image/Tutorial/PoseTransition', true);
+const poseTransitionImageNames = poseTransitionImages.keys().map((item) => item.replace('./', ''));
+const poseTransitionImageLabels = [
+    'Click on the image on Gallery to add into Canvas.',
+    'Add mask the object you want to change pose.',
+    'Add description of idea into prompt field.',
+    'Click on the Bot button (on the bottom right corner).',
+    'Click on Pose Transition button',
+]
+
+//Get dir of Object Replacement Images and define the instruction
+const objectReplacementImages = require.context('../../public/Image/Tutorial/ObjectReplacement', true);
+const objectReplacementImageNames = objectReplacementImages.keys().map((item) => item.replace('./', ''));
+const objectReplacementImageLabels = [
+    'Click on the image on Gallery to add into Canvas.',
+    'Add mask the object you want to replace.',
+    'Add description of idea into prompt field.',
+    'Click on the Bot button (on the bottom right corner).',
+    'Click on Object Replacement (Fixed) button',
+    'Or click on Object Replacement (Dynamic) button',
+]
+
+//Get dir of Thematic Collection Images and define the instruction
+const thematicCollectionImages = require.context('../../public/Image/Tutorial/ThematicCollection', true);
+const thematicCollectionImageNames = thematicCollectionImages.keys().map((item) => item.replace('./', ''));
+const thematicCollectionImageLabels = [
+    'Click on the image on Gallery to add into Canvas.',
+    'Add mask the object you want to replace.',
+    'Add description of idea into prompt field.',
+    'Click on the Bot button (on the bottom right corner).',
+    'Click on Thematic Collection button',
+]
+
+//Get dir of Object Removal Images and define the instruction
+const objectRemovalImages = require.context('../../public/Image/Tutorial/ObjectRemoval', true);
+const objectRemovalImageNames = objectRemovalImages.keys().map((item) => item.replace('./', ''));
+const objectRemovalImageLabels = [
+    'Click on the image on Gallery to add into Canvas.',
+    'Add mask the object you want to remove.',
+    'Click on the Bot button (on the bottom right corner).',
+    'Click on Object Removal button',
 ]
 
 const Header = () => {
     const [open, setOpen] = React.useState(false);
-    const [tutorialMode, setTutorialMode] = React.useState("AddPrompt");
+    const [tutorialMode, setTutorialMode] = React.useState("UploadImage");
 
     //Open Tutorial popup
     const handleClickOpen = () => {
@@ -96,7 +128,7 @@ const Header = () => {
     return (
         <header style={{background: "#495053", height: '10%', alignContent: 'center', verticalAlign: 'center'}}>
             <img className="icon" src="/Image/Home/canvas.png" width={30} height={30} alt={""}></img>
-            <label className="title">ArtiCanvas</label>
+            <label className="title">EPEdit</label>
             <button className="tutorial" onClick={handleClickOpen}>Tutorials</button>
             <Dialog onClose={handleClose} open={open}>
                 <DialogTitle>Tutorial</DialogTitle>
@@ -110,19 +142,27 @@ const Header = () => {
                             label="Tutorial"
                             onChange={handleTutorialChange}
                         >
-                            <MenuItem value="AddPrompt">AddPrompt</MenuItem>
-                            <MenuItem value="PromptToSketch">PromptToSketch</MenuItem>
-                            <MenuItem value="EditSketch">EditSketch</MenuItem>
-                            <MenuItem value="ReplaceObject">ReplaceObject</MenuItem>
-                            <MenuItem value="HowToDownload">HowToDownload</MenuItem>
+                            <MenuItem value="UploadImage">Upload Image</MenuItem>
+                            <MenuItem value="AddMask">Add Mask</MenuItem>
+                            <MenuItem value="ImageGeneration">Image Generation</MenuItem>
+                            <MenuItem value="ObjectAddition">Object Addition</MenuItem>
+                            <MenuItem value="BackgroundAlteration">Background Alteration</MenuItem>
+                            <MenuItem value="PoseTransition">Pose Transition</MenuItem>
+                            <MenuItem value="ObjectReplacement">Object Replacement</MenuItem>
+                            <MenuItem value="ThematicCollection">Thematic Collection</MenuItem>
+                            <MenuItem value="ObjectRemoval">Object Removal</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
-                {tutorialMode === 'AddPrompt' && <TutorialTab folderName={tutorialMode} imageNames={addPromptImageNames} labels={addPromptLabels}/>}
-                {tutorialMode === 'PromptToSketch' && <TutorialTab folderName={tutorialMode} imageNames={promptToSketchImageNames} labels={promptToSketchLabels}/>}
-                {tutorialMode === 'EditSketch' && <TutorialTab folderName={tutorialMode} imageNames={editSketchImageNames} labels={editSketchLabels}/>}
-                {tutorialMode === 'ReplaceObject' && <TutorialTab folderName={tutorialMode} imageNames={replaceObjectImageNames} labels={replaceObjectLabels}/>}
-                {tutorialMode === 'HowToDownload' && <TutorialTab folderName={tutorialMode} imageNames={howToDownloadImageNames} labels={howToDownloadLabels}/>}
+                {tutorialMode === 'UploadImage' && <TutorialTab folderName={tutorialMode} imageNames={uploadImageImageNames} labels={uploadImageImageLabels}/>}
+                {tutorialMode === 'AddMask' && <TutorialTab folderName={tutorialMode} imageNames={addMaskImageNames} labels={addMaskImageLabels}/>}
+                {tutorialMode === 'ImageGeneration' && <TutorialTab folderName={tutorialMode} imageNames={imageGenerationImageNames} labels={imageGenerationImageLabels}/>}
+                {tutorialMode === 'ObjectAddition' && <TutorialTab folderName={tutorialMode} imageNames={objectAdditionImageNames} labels={objectAdditionImageLabels}/>}
+                {tutorialMode === 'BackgroundAlteration' && <TutorialTab folderName={tutorialMode} imageNames={backgroundAlterationImageNames} labels={backgroundAlterationImageLabels}/>}
+                {tutorialMode === 'PoseTransition' && <TutorialTab folderName={tutorialMode} imageNames={poseTransitionImageNames} labels={poseTransitionImageLabels}/>}
+                {tutorialMode === 'ObjectReplacement' && <TutorialTab folderName={tutorialMode} imageNames={objectReplacementImageNames} labels={objectReplacementImageLabels}/>}
+                {tutorialMode === 'ThematicCollection' && <TutorialTab folderName={tutorialMode} imageNames={thematicCollectionImageNames} labels={thematicCollectionImageLabels}/>}
+                {tutorialMode === 'ObjectRemoval' && <TutorialTab folderName={tutorialMode} imageNames={objectRemovalImageNames} labels={objectRemovalImageLabels}/>}
             </Dialog>
         </header>
     )
